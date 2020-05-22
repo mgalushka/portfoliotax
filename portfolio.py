@@ -1,3 +1,7 @@
+from enum import Enum
+from datetime import datetime
+
+
 class Currency:
     EUR = 'EUR'
     USD = 'USD'
@@ -24,14 +28,33 @@ class Money:
         return None
 
 
+class Direction(Enum):
+    BUY = 'BUY'
+    SELL = 'SELL'
+
 class Transaction:
-    date: int # unixtime for transaction date
-    index: str # index
-    price: Money # transaction amount
+    def __init__(
+        self,
+        date: int,              # unixtime for transaction date
+        index: str,             # index
+        amount: int,            # amount
+        price: Money,           # transaction amount
+        direction: Direction    # buy/sell
+    ) -> None:
+        self.date = date
+        self.index = index
+        self.amount = amount
+        self.price = price
+        self.direction = direction
 
-    def __init__(self):
-        pass
-
+    def __repr__(self) -> str:
+        return "[{dt}] {direction} {amount} {index} @ {price}".format(
+            dt=datetime.utcfromtimestamp(self.date).strftime('%Y-%m-%d'),
+            direction=self.direction.name,
+            amount=self.amount,
+            index=self.index,
+            price=self.price,
+        )
 
 class Portfolio:
     def __init__(self):
