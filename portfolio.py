@@ -2,17 +2,10 @@ from enum import Enum
 from datetime import datetime
 
 
-class Currency:
+class Currency(Enum):
     EUR = 'EUR'
     USD = 'USD'
-    EUR = 'EUR'
-
-    def __init__(self, currency: str) -> None:
-        self.currency = currency
-
-    def __repr__(self) -> str:
-        return self.currency
-
+    GBP = 'GBP'
 
 class Money:
     def __init__(self, whole: int, fraction: int, currency: Currency) -> None:
@@ -21,7 +14,7 @@ class Money:
         self.currency = currency
 
     def __repr__(self) -> str:
-        return "{}.{} {}".format(self.whole, self.fraction, self.currency)
+        return "{}.{} {}".format(self.whole, self.fraction, self.currency.name)
 
     @staticmethod
     def parse_from_string(input: str) -> None:
