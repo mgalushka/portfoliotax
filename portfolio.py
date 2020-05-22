@@ -8,18 +8,15 @@ class Currency(Enum):
     GBP = 'GBP'
 
 class Money:
-    def __init__(self, whole: int, fraction: int, currency: Currency) -> None:
-        self.whole = whole
-        self.fraction = fraction
+    def __init__(self, amount: float, currency: Currency) -> None:
+        self.amount = amount
         self.currency = currency
 
     def __repr__(self) -> str:
-        return "{}.{} {}".format(self.whole, self.fraction, self.currency.name)
-
-    @staticmethod
-    def parse_from_string(input: str) -> None:
-        return None
-
+        return "{amount:.2f} {currency}".format(
+            amount=self.amount,
+            currency=self.currency.name,
+        )
 
 class Direction(Enum):
     BUY = 'BUY'
